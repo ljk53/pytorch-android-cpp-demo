@@ -1,6 +1,11 @@
 # pytorch-android-cpp-demo
 
-Shows how to integrate LibTorch C++ library in Android app.
+Shows how to integrate LibTorch C++ library in Android app. Files under this folder:
+* predictor.cpp - simple c++ code shows how to load TorchScript model and run forward() pass with LibTorch C++ API.
+* build.sh - script to build the predictor binary with host toolchain.
+* build_android.sh - script to build the predictor binary with Android NDK.
+* CMakeLists.txt - shows how to link LibTorch C++ into your C++ project.
+* mobilenetv2.pt - MobileNetV2 TorchScript model.
 
 ## Build the project with Android NDK toolchain
 
