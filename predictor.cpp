@@ -21,15 +21,6 @@ struct MobileCallGuard {
   torch::jit::GraphOptimizerEnabledGuard no_optimizer_guard{false};
 };
 
-void init() {
-  // Set QEngine to QNNPACK if it's available.
-  auto qengines = at::globalContext().supportedQEngines();
-  if (std::find(qengines.begin(), qengines.end(), at::QEngine::QNNPACK) !=
-      qengines.end()) {
-    at::globalContext().setQEngine(at::QEngine::QNNPACK);
-  }
-}
-
 torch::jit::script::Module loadModel(const std::string& path) {
   MobileCallGuard guard;
   auto module = torch::jit::load(path);
@@ -44,7 +35,6 @@ int main(int argc, const char* argv[]) {
     std::cerr << "Usage: " << argv[0] << " <model_path>\n";
     return 1;
   }
-  init();
   auto module = loadModel(argv[1]);
   auto input = torch::ones({1, 3, 224, 224}); // TODO: load real image
   auto output = [&]() {
